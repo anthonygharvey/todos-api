@@ -11,7 +11,7 @@ RSpec.describe Todo, type: :model do
 	it {should validate_presence_of(:created_by)}
 end
 
-RSpec.describe 'Todos API', type: request do
+RSpec.describe 'Todos API', type: :request do
 	#initialize test data
 	let!(:todos) {create_list(:todo, 10)}
 	let(:todo_id) {todos.first.id}
@@ -79,7 +79,7 @@ RSpec.describe 'Todos API', type: request do
 		end
 
 		context 'when the request is invalid' do
-			before {post: '/todos', params: {title: 'Foobar'} }
+			before {post '/todos', params: {title: 'Foobar'} }
 
 			it 'returns status code 422' do
 				expect(response).to have_http_status(422)
@@ -110,7 +110,7 @@ RSpec.describe 'Todos API', type: request do
 
 	# Test suite for DELETE /todos/:id
 	describe 'DELETE /todos/:id' do
-		before {delete, "/todos/#{todo_id}"}
+		before {delete "/todos/#{todo_id}"}
 
 		it 'returns status code 204' do
 			expect(resposne).to have_http_status(204)
